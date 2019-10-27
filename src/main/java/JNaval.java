@@ -131,8 +131,8 @@ public class JNaval extends javax.swing.JFrame {
 
     public JNaval() {
         Imagenes i =new Imagenes();
-        portada=i.cargar("portada.jpg");
-        tablero=i.cargar("tablero.jpg");
+        portada=i.cargarPortada();
+        tablero=i.cargarTablero();
         initComponents();
         setBounds(0,0,800,600);
         addMouseListener(
