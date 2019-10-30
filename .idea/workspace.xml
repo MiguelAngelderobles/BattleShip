@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ccb03d3-5579-4862-835b-e41fd550fc92" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/SoundTrack.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Audio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/JNavalDuo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/PortadaDual.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ReproduceAudio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SoundTrack.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/TableroDual.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/JNaval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JNaval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Portada.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Portada.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Tablero.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Tablero.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Cliente.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/JNaval$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JNaval$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/JNaval$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JNaval$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/JNaval$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JNaval$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/JNaval.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JNaval.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Servidor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Imagenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Imagenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SoundTrack.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imagenes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Imagenes.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +25,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaFXApplication" />
         <option value="Class" />
       </list>
     </option>
@@ -52,12 +52,16 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java" />
-      <recent name="$PROJECT_DIR$/src/main/java/Imagenes" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/Imagenes" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -72,7 +76,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.JNaval">
+  <component name="RunManager" selected="Application.JNavalDuo">
     <configuration name="Cliente" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Cliente" />
       <module name="asd" />
@@ -87,8 +91,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Servidor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Servidor" />
+    <configuration name="JNavalDuo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="JNavalDuo" />
+      <module name="asd" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReproduceAudio" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ReproduceAudio" />
+      <module name="asd" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TiposAudio" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TiposAudio" />
       <module name="asd" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -96,9 +114,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JNavalDuo" />
         <item itemvalue="Application.JNaval" />
+        <item itemvalue="Application.ReproduceAudio" />
+        <item itemvalue="Application.TiposAudio" />
         <item itemvalue="Application.Cliente" />
-        <item itemvalue="Application.Servidor" />
       </list>
     </recent_temporary>
   </component>
