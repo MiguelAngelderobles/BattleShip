@@ -20,6 +20,10 @@ public class JNavalDuo extends javax.swing.JFrame {
     boolean bTableroMio[][]=new boolean[8][8];
     int tableroSuyo[][]=new int[8][8];
     boolean bTableroSuyo[][]=new boolean[8][8];
+    int tableroMio2[][]=new int[8][8];
+    boolean bTableroMio2[][]=new boolean[8][8];
+    int tableroSuyo2[][]=new int[8][8];
+    boolean bTableroSuyo2[][]=new boolean[8][8];
 
     int pFila=0;
     int pCol=0;
@@ -35,7 +39,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         return true;
     }
 
-    public boolean puedePonerBarco(int tab[][], int tam, int f, int c, int hor){
+    public boolean puedePonerBarco(int tableroMio[][],int tableroSuyo2[][], int tam, int f, int c, int hor){
         int df=0,dc=0;
         if (hor==1) df=1;
         else dc=1;
@@ -49,7 +53,10 @@ public class JNavalDuo extends javax.swing.JFrame {
         for (int f2=f-1;f2<=f+1+df*tam;f2++){
             for (int c2=c-1;c2<=c+1+dc*tam;c2++){
                 if (celdaEstaEnTablero(f2,c2)){
-                    if (tab[f2][c2]!=0){
+                    if (tableroMio[f2][c2]!=0){
+                        return false;
+                    }
+                    if (tableroSuyo2[f2][c2]!=0){
                         return false;
                     }
                 }
@@ -65,13 +72,15 @@ public class JNavalDuo extends javax.swing.JFrame {
             f=(int)(Math.random()*8);
             c=(int)(Math.random()*8);
             hor=(int)(Math.random()*2);
-        }while(!puedePonerBarco(tab, tam, f, c, hor));
+        }while(!puedePonerBarco(tableroMio, tam, f, c, hor));
         int df=0,dc=0;
         if (hor==1) df=1;
         else dc=1;
         for (int f2=f;f2<=f+(tam-1)*df;f2++){
             for (int c2=c;c2<=c+(tam-1)*dc;c2++){
-                tab[f2][c2]=tam;
+                tableroMio[f2][c2]=tam;
+                tableroSuyo2[f2][c2]=tam;
+
             }
         }
     }
@@ -83,10 +92,15 @@ public class JNavalDuo extends javax.swing.JFrame {
                 tableroSuyo[n][m]=0;
                 bTableroMio[n][m]=false;
                 bTableroSuyo[n][m]=false;
+                tableroMio2[n][m]=0;
+                tableroSuyo2[n][m]=0;
+                bTableroMio2[n][m]=false;
+                bTableroSuyo2[n][m]=false;
             }
         }
         for (int tam=5;tam>=1;tam--){
             ponerBarco(tableroSuyo, tam);
+            ponerBarco(tableroMio2, tam);
         }
         pTam=5;
     }
@@ -109,7 +123,7 @@ public class JNavalDuo extends javax.swing.JFrame {
     }
 
     public boolean puedePonerBarco(){
-        return puedePonerBarco(tableroMio, pTam, pFila, pCol, pHor);
+        return puedePonerBarco(tablero, pTam, pFila, pCol, pHor);
     }
 
     public boolean victoria(int tab[][], boolean bTab[][]){
@@ -169,6 +183,7 @@ public class JNavalDuo extends javax.swing.JFrame {
                                 for (int m=pFila;m<=pFila+(pTam-1)*pDF;m++){
                                     for (int n=pCol;n<=pCol+(pTam-1)*pDC;n++){
                                         tableroMio[m][n]=pTam;
+                                        tableroSuyo2[m][n]=pTam;
                                     }
                                 }
                                 pTam--;
@@ -224,6 +239,7 @@ public class JNavalDuo extends javax.swing.JFrame {
                     }
                 }
         );
+
     }
 
     public boolean noHayInvisible(int tab[][], int valor, boolean bVisible[][]){
@@ -238,7 +254,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         }
         return true;
     }
-
+    //pintar tablero 8 x 8 para color amarrillo toque ,rojo hundido , amarillo agua ,gris barcos ,
     public void pintarTablero(Graphics g, int tab[][], int x, int y, boolean bVisible[][]){
         for (int n=0;n<8;n++){
             for (int m=0;m<8;m++){
@@ -259,7 +275,7 @@ public class JNavalDuo extends javax.swing.JFrame {
                 }
                 g.setColor(Color.black);
                 g.drawRect(x+m*30, y+n*30, 30, 30);
-                if (nEstado==1 && tab==tableroMio){
+                if (nEstado==1 && tab==tableroMio && tab==tableroSuyo2){
                     int pDF=0;
                     int pDC=0;
                     if (pHor==1){
@@ -277,6 +293,8 @@ public class JNavalDuo extends javax.swing.JFrame {
     }
 
     boolean bPrimeraVez=true;
+
+    //carga tablero y portada si es por primera vez cargue todo a la vez
     public void paint(Graphics g){
         if (bPrimeraVez){
             g.drawImage(portada, 0,0,1,1,this);

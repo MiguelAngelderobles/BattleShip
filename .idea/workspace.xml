@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ccb03d3-5579-4862-835b-e41fd550fc92" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Audio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/JNavalDuo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/PortadaDual.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ReproduceAudio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/SoundTrack.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TableroDual.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Imagenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Imagenes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SoundTrack.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Imagenes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Imagenes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/JNavalDuo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JNavalDuo.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
