@@ -24,6 +24,7 @@ public class JNavalDuo extends javax.swing.JFrame {
     int tableroMioIn[][] = new int[8][8];
     int tableroSuyoIn[][] = new int[8][8];
 
+    boolean bPrimeraVez=true;
 
 
     int pFila=0;
@@ -39,7 +40,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         if (c>=8) return false;
         return true;
     }
-
+    // pongo barcos veo si esta fuera
     public boolean puedePonerBarco(int tab[][], int tam, int f, int c, int hor){
         int df=0,dc=0;
         if (hor==1) df=1;
@@ -63,24 +64,6 @@ public class JNavalDuo extends javax.swing.JFrame {
         return true;
     }
 
-    /*public void ponerBarco(int tab[][], int tam){
-
-        int f,c,hor;
-        do{
-            f=(int)(Math.random()*8);
-            c=(int)(Math.random()*8);
-            hor=(int)(Math.random()*2);
-        }while(!puedePonerBarco(tab, tam, f, c, hor));
-        int df=0,dc=0;
-        if (hor==1) df=1;
-        else dc=1;
-        for (int f2=f;f2<=f+(tam-1)*df;f2++){
-            for (int c2=c;c2<=c+(tam-1)*dc;c2++){
-                tab[f2][c2]=tam;
-            }
-        }
-    }*/
-
     public void iniciarPartida(){
         for (int n=0;n<8;n++){
             for (int m=0;m<8;m++){
@@ -90,10 +73,6 @@ public class JNavalDuo extends javax.swing.JFrame {
                 bTableroSuyo[n][m]=false;
             }
         }
-        /*for (int tam=5;tam>=1;tam--){
-            ponerBarco(tableroSuyo, tam);
-        }
-        pTam=5;*/
     }
 
 
@@ -120,7 +99,7 @@ public class JNavalDuo extends javax.swing.JFrame {
     public boolean puedePonerBarcoE(){
         return puedePonerBarco(tableroSuyo, pTam, pFila, pCol, pHor);
     }
-
+    //cuantos true false de barcos estan acertados
     public boolean victoria(int tab[][], boolean bTab[][]){
         for (int n=0;n<8;n++){
             for (int m=0;m<8;m++){
@@ -132,25 +111,15 @@ public class JNavalDuo extends javax.swing.JFrame {
         return true;
     }
 
-   /* public void dispararEl(){
-        int f,c;
-        do{
-            f=(int)(Math.random()*8);
-            c=(int)(Math.random()*8);
-        }while(bTableroMio[f][c]==true);
-        bTableroMio[f][c]=true;
-    }*/
-
+    //cargo imagenes , creo ventana y con los estados
+// controlo los mouse event 1 empezar juego
+//2 pone barcos jugador 1
+//3 pone barcos jugador 2
+//4 quien gana
     public JNavalDuo() {
         Imagenes i =new Imagenes();
-
-//        AudioPlayer sountrack = audio.getAudio();
-//        sountrack.run();
         portada=i.cargarPortadaDuo();
         tablero=i.cargarTableroDuo();
-//        Audio audio = new Audio();
-//        AudioClip audio1=audio.getAudio("/home/miguel/asd/src/main/java/SoundTrack.wav");
-//        audio1.play();
         initComponents();
         setBounds(0,0,1600,600);
         addMouseListener(
@@ -308,7 +277,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         }
         return true;
     }
-
+    //colores del tablero
     public void pintarTablero(Graphics g, int tab[][], int x, int y, boolean bVisible[][]){
         for (int n=0;n<8;n++){
             for (int m=0;m<8;m++){
@@ -364,8 +333,7 @@ public class JNavalDuo extends javax.swing.JFrame {
             }
         }
     }
-
-    boolean bPrimeraVez=true;
+    //el b primera vez es para que me cargue a la primera portada y tablero para que no se quede tildado
     public void paint(Graphics g){
         if (bPrimeraVez){
             g.drawImage(portada, 0,0,1,1,this);
