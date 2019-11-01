@@ -11,19 +11,20 @@ public class JNavalDuo extends javax.swing.JFrame {
 
     Image portada;
     Image tablero;
-/*
-    Audio audio=new Audio();
-*/
+    /*
+        Audio audio=new Audio();
+    */
     int nEstado=0;
 
     int tableroMio[][]=new int[8][8];
     boolean bTableroMio[][]=new boolean[8][8];
     int tableroSuyo[][]=new int[8][8];
     boolean bTableroSuyo[][]=new boolean[8][8];
-    int tableroMio2[][]=new int[8][8];
-    boolean bTableroMio2[][]=new boolean[8][8];
-    int tableroSuyo2[][]=new int[8][8];
-    boolean bTableroSuyo2[][]=new boolean[8][8];
+    //cree estas 2 variables para que fuera invisibles.
+    int tableroMioIn[][] = new int[8][8];
+    int tableroSuyoIn[][] = new int[8][8];
+
+
 
     int pFila=0;
     int pCol=0;
@@ -39,7 +40,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         return true;
     }
 
-    public boolean puedePonerBarco(int tableroMio[][],int tableroSuyo2[][], int tam, int f, int c, int hor){
+    public boolean puedePonerBarco(int tab[][], int tam, int f, int c, int hor){
         int df=0,dc=0;
         if (hor==1) df=1;
         else dc=1;
@@ -53,10 +54,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         for (int f2=f-1;f2<=f+1+df*tam;f2++){
             for (int c2=c-1;c2<=c+1+dc*tam;c2++){
                 if (celdaEstaEnTablero(f2,c2)){
-                    if (tableroMio[f2][c2]!=0){
-                        return false;
-                    }
-                    if (tableroSuyo2[f2][c2]!=0){
+                    if (tab[f2][c2]!=0){
                         return false;
                     }
                 }
@@ -65,25 +63,23 @@ public class JNavalDuo extends javax.swing.JFrame {
         return true;
     }
 
-    public void ponerBarco(int tab[][], int tam){
+    /*public void ponerBarco(int tab[][], int tam){
 
         int f,c,hor;
         do{
             f=(int)(Math.random()*8);
             c=(int)(Math.random()*8);
             hor=(int)(Math.random()*2);
-        }while(!puedePonerBarco(tableroMio, tam, f, c, hor));
+        }while(!puedePonerBarco(tab, tam, f, c, hor));
         int df=0,dc=0;
         if (hor==1) df=1;
         else dc=1;
         for (int f2=f;f2<=f+(tam-1)*df;f2++){
             for (int c2=c;c2<=c+(tam-1)*dc;c2++){
-                tableroMio[f2][c2]=tam;
-                tableroSuyo2[f2][c2]=tam;
-
+                tab[f2][c2]=tam;
             }
         }
-    }
+    }*/
 
     public void iniciarPartida(){
         for (int n=0;n<8;n++){
@@ -92,17 +88,12 @@ public class JNavalDuo extends javax.swing.JFrame {
                 tableroSuyo[n][m]=0;
                 bTableroMio[n][m]=false;
                 bTableroSuyo[n][m]=false;
-                tableroMio2[n][m]=0;
-                tableroSuyo2[n][m]=0;
-                bTableroMio2[n][m]=false;
-                bTableroSuyo2[n][m]=false;
             }
         }
-        for (int tam=5;tam>=1;tam--){
+        /*for (int tam=5;tam>=1;tam--){
             ponerBarco(tableroSuyo, tam);
-            ponerBarco(tableroMio2, tam);
         }
-        pTam=5;
+        pTam=5;*/
     }
 
 
@@ -123,7 +114,11 @@ public class JNavalDuo extends javax.swing.JFrame {
     }
 
     public boolean puedePonerBarco(){
-        return puedePonerBarco(tablero, pTam, pFila, pCol, pHor);
+        return puedePonerBarco(tableroMio, pTam, pFila, pCol, pHor);
+    }
+    //cree un poner barcos E para que actuara con el barco de jugador 2.
+    public boolean puedePonerBarcoE(){
+        return puedePonerBarco(tableroSuyo, pTam, pFila, pCol, pHor);
     }
 
     public boolean victoria(int tab[][], boolean bTab[][]){
@@ -183,16 +178,46 @@ public class JNavalDuo extends javax.swing.JFrame {
                                 for (int m=pFila;m<=pFila+(pTam-1)*pDF;m++){
                                     for (int n=pCol;n<=pCol+(pTam-1)*pDC;n++){
                                         tableroMio[m][n]=pTam;
-                                        tableroSuyo2[m][n]=pTam;
+                                        tableroMioIn[m][n]=pTam;//agregue nada mas esto para que la flota invisible tuviera los mismos valores
                                     }
                                 }
                                 pTam--;
                                 if (pTam==0){
                                     nEstado=2;
+                                    pTam = 5;
                                     repaint();
                                 }
                             }
-                        }else if (nEstado==2){
+                        }else if(e.getModifiers() == MouseEvent.BUTTON3_MASK && nEstado==2){
+                            //puse los mismos condicionales en este if para que pudiera cambiar las filas y columnas cuando entre a estado 2
+                            // (no, no trates de juntarlos en 1 por que explota).
+                            pHor=1-pHor;
+                            rectificarBarcoPoner();
+                            repaint();
+                            if(nEstado== 2){
+                                if (puedePonerBarcoE()){
+                                    int pDF=0;
+                                    int pDC=0;
+                                    if (pHor==1){
+                                        pDF=1;
+                                    }else{
+                                        pDC=1;
+                                    }
+                                    for (int h=pFila;h<=pFila+(pTam-1)*pDF;h++){
+                                        for (int j=pCol;j<=pCol+(pTam-1)*pDC;j++){
+                                            tableroSuyo[h][j]=pTam;
+                                            tableroSuyoIn[h][j]=pTam;//aqui esta la flota enemiga
+                                        }
+                                    }
+                                    pTam--;
+                                    if (pTam==0){
+                                        nEstado=3;
+                                        repaint();
+                                    }
+                                }
+
+                            }
+                        }else if (nEstado==3){
                             int f=(e.getY()-200)/30;
                             int c=(e.getX()-450)/30;
                             if (f!=pFila || c!=pCol){
@@ -201,23 +226,42 @@ public class JNavalDuo extends javax.swing.JFrame {
                                 if (celdaEstaEnTablero(f, c)){
                                     if (bTableroSuyo[f][c]==false){
                                         bTableroSuyo[f][c]=true;
+                                        nEstado = 4;
                                         repaint();
                                         if (victoria(tableroSuyo, bTableroSuyo)){
-                                            JOptionPane.showMessageDialog(null, "Has ganado");
+                                            JOptionPane.showMessageDialog(null, "Jugador 1: Has ganado");
+                                            nEstado=0;
+                                        }
+                                        repaint();
+//                                        dispararEl();
+
+                                    }
+                                }
+                            }
+                        }else if (nEstado==4){
+                            int f=(e.getY()-200)/30;
+                            int c=(e.getX()-1250)/30;
+                            if (f!=pFila || c!=pCol){
+                                pFila=f;
+                                pCol=c;
+                                if (celdaEstaEnTablero(f, c)){
+                                    if (bTableroMio[f][c]==false){
+                                        bTableroMio[f][c]=true;
+                                        nEstado = 3;
+                                        repaint();
+                                        if (victoria(tableroMio, bTableroMio)){
+                                            JOptionPane.showMessageDialog(null, "Jugador 2: Has ganado");
                                             nEstado=0;
                                         }
 //                                        dispararEl();
                                         repaint();
-                                        if (victoria(tableroMio, bTableroMio)){
-                                            JOptionPane.showMessageDialog(null, "Has perdido");
-                                            nEstado=0;
-                                        }
-                                        repaint();
+
                                     }
                                 }
                             }
                         }
                     }
+
                 }
         );
         addMouseMotionListener(
@@ -235,12 +279,22 @@ public class JNavalDuo extends javax.swing.JFrame {
                                 rectificarBarcoPoner();
                                 repaint();
                             }
+                        }//agregue un condicional para estado 2(que es obviamente jugador 2 por las dudas).
+                        if (nEstado==2 && x>=900 && y>=200 && x<900+30*8 && y<200+30*8){
+                            int f=(y-200)/30;
+                            int c=(x-900)/30;
+                            if (f!=pFila || c!=pCol){
+                                pFila=f;
+                                pCol=c;
+                                rectificarBarcoPoner();
+                                repaint();
+                            }
                         }
                     }
                 }
         );
-
     }
+
 
     public boolean noHayInvisible(int tab[][], int valor, boolean bVisible[][]){
         for (int n=0;n<8;n++){
@@ -254,7 +308,7 @@ public class JNavalDuo extends javax.swing.JFrame {
         }
         return true;
     }
-    //pintar tablero 8 x 8 para color amarrillo toque ,rojo hundido , amarillo agua ,gris barcos ,
+
     public void pintarTablero(Graphics g, int tab[][], int x, int y, boolean bVisible[][]){
         for (int n=0;n<8;n++){
             for (int m=0;m<8;m++){
@@ -273,9 +327,25 @@ public class JNavalDuo extends javax.swing.JFrame {
                     g.setColor(Color.gray);
                     g.fillRect(x+m*30, y+n*30, 30, 30);
                 }
-                g.setColor(Color.black);
-                g.drawRect(x+m*30, y+n*30, 30, 30);
-                if (nEstado==1 && tab==tableroMio && tab==tableroSuyo2){
+                if (nEstado==1 && tab==tableroMio){
+                    int pDF=0;
+                    int pDC=0;
+                    if (pHor==1){
+                        pDF=1;
+                    }else{
+                        pDC=1;
+                    }
+                    if (n>=pFila && m>=pCol && n<=pFila+(pTam-1)*pDF && m<=pCol+(pTam-1)*pDC){
+                        g.setColor(Color.green);
+                        g.fillRect(x+m*30, y+n*30, 30, 30);
+                    }
+                }//agregue los condicinales para jugador 2/ estado 2
+                if (tab[n][m]>0 && tab==tableroSuyo && !bVisible[n][m]){
+                    g.setColor(Color.gray);
+                    g.fillRect(x+m*30, y+n*30, 30, 30);
+                }
+
+                if (nEstado==2 && tab==tableroSuyo){
                     int pDF=0;
                     int pDC=0;
                     if (pHor==1){
@@ -288,13 +358,14 @@ public class JNavalDuo extends javax.swing.JFrame {
                         g.fillRect(x+m*30, y+n*30, 30, 30);
                     }
                 }
+                g.setColor(Color.black);
+                g.drawRect(x+m*30, y+n*30, 30, 30);
+
             }
         }
     }
 
     boolean bPrimeraVez=true;
-
-    //carga tablero y portada si es por primera vez cargue todo a la vez
     public void paint(Graphics g){
         if (bPrimeraVez){
             g.drawImage(portada, 0,0,1,1,this);
@@ -306,9 +377,9 @@ public class JNavalDuo extends javax.swing.JFrame {
         }else {
             g.drawImage(tablero, 0, 0, this);
             pintarTablero(g, tableroMio, 100, 200, bTableroMio);
-            pintarTablero(g, tableroSuyo, 450, 200, bTableroSuyo);
-            pintarTablero(g, tableroMio, 900, 200, bTableroMio);
-            pintarTablero(g, tableroSuyo, 1250, 200, bTableroSuyo);
+            pintarTablero(g, tableroSuyoIn, 450, 200, bTableroSuyo);//pintado jugador 2 invisible
+            pintarTablero(g, tableroSuyo, 900, 200, bTableroSuyo);//pintado jugador 2
+            pintarTablero(g, tableroMioIn, 1250, 200, bTableroMio);//pintado jugador 1 invisible
         }
     }
 
@@ -336,9 +407,8 @@ public class JNavalDuo extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JNavalDuo().setVisible(true);
+
             }
         });
     }
-
 }
-

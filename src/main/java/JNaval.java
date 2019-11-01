@@ -1,15 +1,8 @@
-import java.applet.AudioClip;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
 
 public class JNaval extends javax.swing.JFrame {
 
